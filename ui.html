@@ -1,0 +1,1800 @@
+<html>
+
+<head>
+  <style>
+    /* START ANCHOR ************************************************* */
+    a {
+      color: var(--link-text, #DA0000);
+      cursor: pointer;
+      font-family: var(--Text-fontfamily, "Frutiger for UBS Web");
+      font-size: var(--Text-body-fontsize-lg, 16px);
+      font-style: normal;
+      font-weight: 400;
+      line-height: var(--Text-body-lineheight-lg, 24px);
+      text-decoration-line: unset;
+
+      &:hover {
+        text-decoration-line: underline;
+      }
+
+    }
+
+    /* END ANCHOR ************************************************* */
+    /* START FORM FIELD ************************************************* */
+
+    .form-field {
+      margin-bottom: 16px;
+
+      input {
+        display: flex;
+        width: 100%;
+        height: var(--input-height-compact, 32px);
+        justify-content: flex-end;
+        align-items: center;
+        flex: 1 0 0;
+
+
+        border-radius: var(--input-radius, 4px) var(--input-radius, 4px) 0px 0px;
+        border: none;
+        border-bottom: 1px solid var(--input-outline, #919191);
+        background: var(--input-background, #F5F5F5);
+
+        &:focus {
+          border: none;
+          border-bottom: 2px solid var(--generic-outline-focus, #0097CC);
+
+        }
+
+        &:focus-visible {
+          outline: none;
+        }
+      }
+
+      label {
+        color: #646464;
+        font-size: 12px;
+        display: block;
+        margin-bottom: 4px;
+      }
+    }
+
+    /* END FORM FIELD ************************************************* */
+    /* START TABLE ************************************************* */
+    table {
+      border-collapse: collapse;
+
+      width: 100%;
+      margin-bottom: 20px;
+      color: #1c1c1c;
+      font-size: 12px;
+
+      tr {
+        border-bottom: 1px solid #d7d7d7;
+        line-height: 32px;
+
+        th {
+          font-weight: 500;
+          text-align: left;
+
+        }
+      }
+
+
+    }
+
+    /* END TABLE ************************************************* */
+
+    /* START CHECKBOX ************************************************* */
+    .checkbox-container {
+      display: block;
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      font-family: "Frutiger for UBS Web";
+      font-size: var(--controls-fontsize-label-compact, 16px);
+      font-style: normal;
+      font-weight: 400;
+      line-height: var(--controls-lineheight-label-compact, 18px);
+    }
+
+    .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+
+
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 16px;
+      width: 16px;
+      border-radius: 2px;
+      background-color: white;
+      border: #1C1C1C solid 1px;
+    }
+
+    .checkbox-container:hover input~.checkmark {
+      background-color: white;
+    }
+
+    .checkbox-container input:checked~.checkmark {
+      background-color: var(--controls-checkbox-background-selected, #1C1C1C);
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    .checkbox-container input:checked~.checkmark:after {
+      display: block;
+    }
+
+    .checkbox-container .checkmark:after {
+      left: 5px;
+      top: 2px;
+      width: 3px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    /* END CHECKBOX ************************************************* */
+
+    /* BEGIN SELECT ************************************************* */
+
+    .custom-select {
+      position: relative;
+      font-family: Arial;
+    }
+
+    .custom-select select {
+      display: none;
+      /*hide original SELECT element: */
+    }
+
+    .select-selected {
+      background-color: #FFF;
+      border: 1px solid #aaa;
+      color: #000000;
+
+
+    }
+
+
+    .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 14px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #000000 transparent transparent transparent;
+    }
+
+
+    .select-selected.select-arrow-active:after {
+      border-color: transparent transparent #000000 transparent;
+      top: 7px;
+    }
+
+
+    .select-items div,
+    .select-selected {
+      /* color: #ffffff; */
+      padding: 8px 16px;
+      /* border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;*/
+      cursor: pointer;
+
+    }
+
+
+    .select-items {
+      position: absolute;
+      background-color: #FFF;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.16)
+    }
+
+
+    .select-hide {
+      display: none;
+    }
+
+    .same-as-selected {
+      background-color: #00000029;
+    }
+
+    .select-items div:hover {
+      background-color: #eee;
+    }
+
+    /* END SELECT ************************************************* */
+
+    /* BEGIN BUTTON ************************************************* */
+    .primary-button {
+
+      height: var(--button-height, 32px);
+      cursor: pointer;
+      padding: var(--button-padding-vertical, 10px) var(--button-padding-horizontal, 12px);
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      background: var(--button-primary-background, #404040);
+      border: none;
+      gap: var(--button-gap-icon, 8px);
+      /* Button/label-compact */
+      color: var(--generic-text-alternate, #FFF);
+      font-feature-settings: 'liga' off, 'clig' off;
+      /* Button/label */
+      font-family: var(--Text-fontfamily, "Frutiger for UBS Web");
+      font-size: var(--button-fontsize-text, 14px);
+      font-style: normal;
+      font-weight: 500;
+      line-height: var(--button-lineheight-text, 12px);
+      /* 142.857% */
+
+
+    }
+
+    .primary-button.disabled {
+      background: var(--generic-background-disabled, #D7D7D7);
+      cursor: auto;
+    }
+
+    .secondary-button {
+      cursor: pointer;
+      height: var(--button-height, 32px);
+      padding: var(--button-padding-vertical, 10px) var(--button-padding-horizontal, 12px);
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      background: var(--button-primary-background, #404040);
+      border: none;
+      gap: var(--button-gap-icon, 8px);
+      /* Button/label-compact */
+      color: var(--generic-text-alternate, #FFF);
+      font-feature-settings: 'liga' off, 'clig' off;
+      /* Button/label */
+      font-family: var(--Text-fontfamily, "Frutiger for UBS Web");
+      font-size: var(--button-fontsize-text, 14px);
+      font-style: normal;
+      font-weight: 500;
+      line-height: var(--button-lineheight-text, 12px);
+      /* 142.857% */
+
+      color: var(--generic-text-primary, #1C1C1C);
+      border: 1px solid var(--button-secondary-outline, #CCCABC);
+      background: var(--button-primary-background, #fff);
+
+    }
+
+    input[type="checkbox"] {
+
+      >label {
+        color: red;
+      }
+
+    }
+
+    /* END BUTTON ************************************************* */
+
+    /* BEGIN LAYOUT ************************************************* */
+    .header {
+      display: flex;
+      padding: var(--header-header-margin-vertical, 8px) 0px;
+      align-items: center;
+      gap: var(--header-header-margin-hotizontal, 12px);
+      flex: 1 0 0;
+      margin-bottom: 24px;
+
+      svg {
+        height: 30px;
+      }
+    }
+
+    .app-name {
+      color: var(--foreground, #1C1C1C);
+      font-family: "Frutiger for UBS Web";
+      font-size: var(--appname-fontsize, 16px);
+      font-style: normal;
+      font-weight: 400;
+      line-height: var(--Text-body-lineheight-lg, 24px);
+    }
+
+    .section {
+      color: var(--color-text-inverted, #1c1c1c);
+      font: bold 0.875rem / 1rem Frutiger, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 1.125rem;
+      margin-bottom: 16px;
+    }
+
+    .tool-bar {
+      display: flex;
+      gap: 12px;
+      height: 50px;
+      align-items: center;
+    }
+
+    .loading-container {
+      position: relative;
+      top: 40%;
+
+      .spinner {
+        display: flex;
+        justify-content: center;
+      }
+
+      .spinner-text {
+        display: flex;
+        justify-content: center;
+
+        >p {
+          font-size: 0.75rem;
+          color: #646464;
+          max-width: 300px;
+          max-width: 300px;
+        }
+      }
+    }
+
+    .mr-success {
+      position: relative;
+      top: 40%;
+
+      .info {
+        display: flex;
+        justify-content: center;
+
+        .content {
+          display: flex;
+          align-items: flex-start;
+          gap: 24px;
+          align-self: stretch;
+
+          svg {
+            width: 48px;
+            height: 48px;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+
+    .configuration {
+      display: flex;
+      border: 1px solid #d7d7d7;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 25px;
+      height: 200px;
+
+      >div>.item {
+        margin-top: 20px;
+        flex-basis: 50%;
+        flex-grow: 0;
+      }
+    }
+
+    .messages {
+      margin-bottom: 25px;
+    }
+
+    .dialog {
+      border-radius: var(--overlay-message-radius, 8px);
+      background: var(--overlay-background, #FFF);
+      box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.24);
+      padding: var(--overlay-padding-vertical, 32px) var(--overlay-message-padding-horizontal, 48px);
+      border: none;
+
+
+    }
+
+    .dialog-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      align-self: stretch;
+
+      svg {
+        width: 48px;
+        height: 48px;
+        margin-top: 10px;
+      }
+    }
+
+    #edit_entry_content {
+      display: block;
+    }
+
+    .info-notification {
+      display: flex;
+      padding: var(--Generic-padding-padding-vertical30, 12px) var(--generic-tbd-padding-pls-do-not-use-padding-lg, 12px);
+      margin-bottom: 20px;
+      gap: 10px;
+      border-radius: var(--messagebox-radius, 4px);
+      border: 1px solid var(--messagebox-outline-info, #3A5A88);
+      background: var(--messagebox-muted-background-info, #EFF4FB);
+
+      svg {
+        width: 16px;
+        height: 16spx;
+      }
+    }
+
+    .main-content {
+      height: calc(100% - 120px);
+      overflow: auto;
+      scrollbar-width: thin;
+    }
+
+    #step1,
+    #step0,
+    #step2 {
+      height: 100%;
+    }
+
+    .entry-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .edit-form {}
+
+
+    .documentation {
+      margin-left: auto;
+    }
+
+    /* END LAYOUT ************************************************* */
+  </style>
+</head>
+
+<body>
+  <div class="plugin-wrapper">
+    <!-- Header section -->
+    <div class="header">
+      <a>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="127px" height="46px" viewBox="0 0 127 46" enable-background="new 0 0 127 46" xml:space="preserve">
+          <style type="text/css">
+            .st0 {
+              fill: #E60000;
+            }
+
+            .st1 {
+              fill: #000000;
+            }
+          </style>
+          <path class="st0"
+            d="m74.3 27.7c0 9.5-5.2 10.7-10.4 10.7-8.9 0-10.8-4.6-10.8-11.1v-18.5h-3.3v-1.8h12.5v1.8h-3.5v17.9c0 6.3 1.6 9.5 6.2 9.5s6.9-2.3 6.9-8.9v-18.5h-3.3v-1.8h8.9v1.8h-3l-0.2 18.9zm8.7 8.5v-27.4h-3.5v-1.8h13.8c5.9 0 8.8 3.3 8.8 7.2 0 4.2-3.8 6.5-7.1 7.2 6.5 0.6 8.3 4.8 8.3 7.9 0 6.3-5.4 8.7-10.6 8.7h-13.4v-1.8h3.7zm13.5-21.6c0-2.9-1.5-5.8-4.8-5.8h-3.6v11.9h3.2c3.6 0 5.2-2.9 5.2-6.1zm1.2 14.8c0-4.1-1.8-6.9-5.9-6.9h-3.5v13.8h2.9c4.3-0.1 6.5-2.7 6.5-6.9zm19.5-21c-3.3 0-5.4 1.9-5.4 5.3 0 3 3.3 4.5 6.5 5.6 1.9 0.7 4.3 1.6 6 3.1 1.8 1.7 2.8 4 2.7 6.9-0.1 5.4-3.9 9.1-10.6 9.1-2.5 0-6.4-0.6-8.7-1.9l-0.3-8.1h2c0.2 5.5 2.7 8.3 7.2 8.3 3.6 0 5.6-2.4 5.6-6.1 0-3.2-2.6-4.5-6.6-5.9-1.3-0.4-3.9-1.4-5.7-3.2-1.6-1.6-2.4-3.7-2.4-5.8 0-6.3 4.5-9.1 10.1-9.1 2.2 0 5.5 0.8 7.5 1.9l0.2 7.1h-2c-0.3-5-2.5-7.2-6.1-7.2z" />
+          <path class="st1"
+            d="m34.1 13.3-0.8 0.7 0.9 2.9-2.6-1.4-0.9 0.7 2.9 1.6-3.1 2.5-0.8-1.1 1.1-0.9-0.8-1-1.1 0.9-0.9-1.2 1.1-0.9-0.8-1.1-5.6 4.7 5.4 4.3 1-1.2c0.7 0 1.2 0.6 1.5 1.2l-1 1.2 0.6 0.5c1.3-1.2 3.1-2 4.9-2 3.8 0 6.7 3.1 6.7 6.9 0 1.2-0.3 2.6-1 3.7l1 0.8c0 0.7-0.7 1.5-1.4 1.7l-1-0.8c-1.3 1.3-3.1 2-4.9 2-3.8 0-6.7-3-6.7-6.8 0-1.2 0.4-2.5 0.9-3.6l-0.7-0.5-1 1.3c-0.7-0.1-1.3-0.6-1.5-1.3l1-1.1-4.5-3.8v6h1.5c0.2 0.3 0.3 0.6 0.3 0.9s-0.1 0.7-0.3 1h-1.5v0.7c3.3 0.6 6.1 3.4 6.1 6.8 0 3.5-2.7 6.3-6.1 6.9v1.2c-0.3 0.2-0.7 0.3-1.1 0.3s-0.9-0.1-1.2-0.3v-1.2c-3.4-0.5-6-3.4-6-6.9 0-3.4 2.6-6.2 6-6.7v-0.8h-1.6c-0.2-0.3-0.3-0.6-0.3-1s0.1-0.7 0.3-1h1.6v-6l-4.6 3.8 1 1.1c-0.2 0.7-0.8 1.2-1.5 1.3l-1-1.3-0.6 0.6c0.6 1.1 1 2.3 1 3.6 0 3.8-3 6.8-6.7 6.8-1.8 0-3.6-0.7-4.9-2l-1 0.8c-0.6-0.2-1.3-1-1.4-1.7l1-0.8c-0.6-1.1-1-2.4-1-3.7 0-3.8 2.9-6.9 6.7-6.9 1.8 0 3.6 0.8 4.9 2l0.6-0.4-1-1.2c0.2-0.6 0.8-1.1 1.5-1.2l1 1.2 5.4-4.3-5.6-4.7-0.8 1.1 1.1 0.9-0.8 1.1-1.1-0.9-0.8 1 0.9 0.7-0.8 1.1-3-2.5 2.8-1.6-0.8-0.7-2.6 1.4 0.8-2.7-0.8-0.7-1 3.1-3.1-2.5 0.8-1 1.1 0.9 0.9-1-1.1-1 0.8-1 1.1 0.8 0.8-1-2.4-1.8c0.2-0.8 0.7-1.4 1.5-1.9l12.7 10.4v-6.9h-1.3v1.3h-1.3v-1.3h-1.3v1.3h-1.3v-3.9l3 1.3v-1.1l-2.8-1.2 2.8-1.1v-1l-3 1.2v-4h1.3v1.4h1.3v-1.4h1.3v1.4h1.3v-3.1c0.4-0.1 0.8-0.2 1.2-0.2s0.8 0.1 1.1 0.2v17.1l12.7-10.4c0.7 0.5 1.2 1.1 1.5 1.9l-2.4 1.9 0.8 1 1.1-0.8 0.8 1-1.1 1 0.8 1 1.1-0.9 0.8 1-3.1 2.5-0.9-3.2zm-25.9 18.8c0 1.1 0.8 1.8 1.8 1.9l-1.6 1.2c-1.1-0.4-2.1-1.7-2.1-2.9 0-0.4 0.1-0.6 0.2-0.9h-0.3c-1.5 0-2.7-1.4-3-2.8l1.7-1.3v0.5c0 0.9 0.9 1.7 1.8 1.7 1 0 1.9-0.8 1.9-1.8 0-1.2-0.9-2-2.1-2-2.2 0-4.4 2.2-4.4 5 0 0.8 0.2 1.6 0.5 2.3l1-0.8c0.7 0.3 1.2 1 1.4 1.8l-1 0.8c1 0.8 2.2 1.2 3.4 1.2 2.6 0 4.6-2.1 4.6-3.9 0-1.1-0.7-2-1.8-2-1.2 0.2-2 1-2 2zm13.6 4c0 1 0.8 1.8 1.8 1.8 0.7 0 1-0.3 1.5-0.7v2.1c-0.5 0.3-1 0.4-1.6 0.4-1.1 0-2-0.3-2.6-1.3-0.6 1-1.6 1.3-2.7 1.3-0.5 0-1.1-0.1-1.6-0.4v-2.1c0.5 0.5 0.8 0.7 1.5 0.7 1 0 1.8-0.8 1.8-1.8s-0.6-1.8-1.7-1.8c-1.9 0-2.7 1.8-2.7 3.5 0 2.4 1.8 4.5 4.1 4.9v-1.2c0.4-0.2 0.8-0.2 1.1-0.2 0.4 0 0.8 0 1.2 0.2v1.2c2.2-0.3 4.1-2.6 4.1-4.9 0-1.7-0.7-3.5-2.7-3.5-0.8-0.1-1.5 0.8-1.5 1.8zm11.4-8.3c0 0.9 1 1.8 1.9 1.8s1.8-0.8 1.8-1.7v-0.5l1.6 1.3c-0.3 1.6-1.7 2.9-3.3 2.8 0.1 0.3 0.1 0.6 0.1 0.9 0 1.2-1 2.5-2.1 2.9l-1.5-1.3c1-0.1 1.8-0.8 1.8-1.9s-0.9-1.8-1.9-1.8c-1.1 0-1.8 0.9-1.8 2 0 1.3 1.6 3.9 4.7 3.9 1.2 0 2.4-0.4 3.3-1.2l-1-0.8c0.2-0.8 0.7-1.5 1.4-1.8l1 0.8c0.4-0.7 0.6-1.5 0.6-2.3 0-2.2-1.7-5-4.4-5-1.2 0-2.2 0.7-2.2 1.9z" />
+        </svg>
+      </a>
+      <div class="app-name">Figma Localization Integration Plugin</div>
+
+      <a href="https://devcloud.ubs.net/ubs/wmpc/touchpoint/digital-banking-platform/crew-applications/digital-banking-platform-sdk-framework/AA47511/gene/-/blob/main/documents/HOW_TO_USE.md"
+        target="_blank" class="documentation">Documentation</a>
+    </div>
+
+    <div class="main-content">
+      <!-- BEGIN SCREEN ONE ##########################################################################################################-->
+      <div id="step0">
+        <div class="configuration" style="flex-wrap: wrap;">
+          <div id="loading_packages" style="width: 100%; display: flex;justify-content: center;">
+            <div  class="loading-container">
+              <div class="spinner">
+                <svg width="24" height="24" stroke="#000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <style>
+                    .spinner_V8m1 {
+                      transform-origin: center;
+                      animation: spinner_zKoa 2s linear infinite
+                    }
+    
+                    .spinner_V8m1 circle {
+                      stroke-linecap: round;
+                      animation: spinner_YpZS 1.5s ease-in-out infinite
+                    }
+    
+                    @keyframes spinner_zKoa {
+                      100% {
+                        transform: rotate(360deg)
+                      }
+                    }
+    
+                    @keyframes spinner_YpZS {
+                      0% {
+                        stroke-dasharray: 0 150;
+                        stroke-dashoffset: 0
+                      }
+    
+                      47.5% {
+                        stroke-dasharray: 42 150;
+                        stroke-dashoffset: -16
+                      }
+    
+                      95%,
+                      100% {
+                        stroke-dasharray: 42 150;
+                        stroke-dashoffset: -59
+                      }
+                    }
+                  </style>
+                  <g class="spinner_V8m1">
+                    <circle stroke="#e60000" cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle>
+                  </g>
+                </svg>
+              </div>
+              <div class="spinner-text">
+                <p>loading itt repository packages ...</p>
+              </div>
+    
+            </div>
+          </div>
+
+          <div id="loading_packages_failure" style="width: 100%; display: flex;justify-content: center; display: none;">
+            <div id="mra_failure_content" class="dialog-content" style="align-items: center;">
+              <div style="height: 65%;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M24 12C24 18.628 18.628 24 12 24C5.372 24 0 18.628 0 12C0 5.372 5.372 0 12 0C18.628 0 24 5.372 24 12Z"
+                    fill="#BD000C" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.25 14H12.75L13.5 7H10.5L11.25 14ZM11 17H13V15H11V17Z"
+                    fill="white" />
+                </svg>
+              </div>
+              <div>
+                <h2>Error</h2>
+                <p>Something went wrong while loading itt repository packages.</p>
+                <p id="loading_packages_error_message"></p>
+              </div>
+            </div>
+          </div>
+
+          <div id="itt_config" style="width: 100%; display: flex; display: none;">
+            <div class="item">
+              <div class="section">Package</div>
+              <!-- Folder selection section -->
+              <div class="custom-select" style="width:200px;">
+                <select id="folders-select">
+                  <option value="0">Select a package</option>
+                </select>
+              </div>
+
+
+            </div>
+
+            <div class="item" id="terminology-selection-item">
+              <div class="section">Terminology</div>
+              <!-- Terminology selection section -->
+              <div class="custom-select" style="width:200px;">
+                <select id="terminology-select">
+                  <option value="0">Select terminology</option>
+                </select>
+              </div>
+
+
+            </div>
+          </div>
+          <div id="other_config" style="width: 100%; display: flex;display: none;">
+            <div class="item">
+              <div class="section">Release version</div>
+              <!-- Release version -->
+              <div class="form-field" style="width: 200px">
+                <input type="text" id="releaseVersion" name="releaseVersion" value="15.0.0">
+              </div>
+
+            </div>
+
+            <div class="item">
+              <div class="section">Accessibility</div>
+              <label class="checkbox-container">generate accessibility properties
+                <input type="checkbox" id="generate_accessibility" name="generate_accessibility">
+                <span class="checkmark"></span>
+              </label>
+
+            </div>
+          </div>
+        </div>
+        <div id="loading_text" class="loading-container">
+          <div class="spinner">
+            <svg width="24" height="24" stroke="#000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <style>
+                .spinner_V8m1 {
+                  transform-origin: center;
+                  animation: spinner_zKoa 2s linear infinite
+                }
+
+                .spinner_V8m1 circle {
+                  stroke-linecap: round;
+                  animation: spinner_YpZS 1.5s ease-in-out infinite
+                }
+
+                @keyframes spinner_zKoa {
+                  100% {
+                    transform: rotate(360deg)
+                  }
+                }
+
+                @keyframes spinner_YpZS {
+                  0% {
+                    stroke-dasharray: 0 150;
+                    stroke-dashoffset: 0
+                  }
+
+                  47.5% {
+                    stroke-dasharray: 42 150;
+                    stroke-dashoffset: -16
+                  }
+
+                  95%,
+                  100% {
+                    stroke-dasharray: 42 150;
+                    stroke-dashoffset: -59
+                  }
+                }
+              </style>
+              <g class="spinner_V8m1">
+                <circle stroke="#e60000" cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle>
+              </g>
+            </svg>
+          </div>
+          <div class="spinner-text">
+            <p>loading messages ...</p>
+          </div>
+
+        </div>
+        <!-- Messages section -->
+        <div class="messages">
+
+          <div id="notification" class="info-notification" style="display: none;">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8Z"
+                  fill="#3A5A88" />
+                <path d="M7 6H9V14H7V6ZM7 2H9V4H7V2Z" fill="white" />
+              </svg>
+            </div>
+            <div>
+              <b>Nodes selection active</b>
+              <p>Only selected nodes are parsed.</p>
+              <button id="translate_status_close_dialog" onclick="parseAllNodes()" class="primary-button">Parse all
+                nodes</button>
+            </div>
+          </div>
+
+          <div id="messages_placeholder">
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- END SCREEN ONE ##########################################################################################################-->
+
+      <!-- BEGIN SCREEN ONE ##########################################################################################################-->
+      <div id="step1" style="display: none;">
+        <!-- Configuration section -->
+
+        <table id="translation_entries_table">
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+
+        </table>
+        <button id="new_entry" class="primary-button">Add a new entry</button>
+      </div>
+
+
+      <!-- END SCREEN ONE ##########################################################################################################-->
+
+      <div id="step2" style="display: none;">
+
+        <div class="mr-success">
+          <div class="info">
+
+            <div class="content">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <circle cx="24" cy="24" r="24" fill="#6F7A1A" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M36.3835 18.4443L21.3941 32.8048L12.5791 23.9077L15.4206 21.0924L21.4672 27.1953L33.6163 15.5559L36.3835 18.4443Z"
+                    fill="white" />
+                </svg>
+              </div>
+              <div>
+
+                <h2>Success</h2>
+
+                <span>A new merge request has been created: </span> <a id="merge_request_link" target="_blank">MR
+                  link</a>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- Toolbar section -->
+    <div class="tool-bar">
+      <button id="cancel" class="secondary-button">Cancel</button>
+      <button id="send" class="primary-button disabled">Generate keys</button>
+      <button id="create_mr" class="primary-button disabled" style="display: none;">Create MR</button>
+      <button id="close_plugin" class="primary-button" style="display: none;">Close</button>
+    </div>
+
+  </div>
+
+
+  <!-- BEGIN DIALOGS ##########################################################################################################-->
+
+  <!-- Translation Dialog section -->
+  <dialog id="mr_status_dialog" class="dialog">
+    <div id="mr_status_loading_spinner" class="loading-container">
+      <div class="spinner">
+        <svg width="24" height="24" stroke="#000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .spinner_V8m1 {
+              transform-origin: center;
+              animation: spinner_zKoa 2s linear infinite
+            }
+
+            .spinner_V8m1 circle {
+              stroke-linecap: round;
+              animation: spinner_YpZS 1.5s ease-in-out infinite
+            }
+
+            @keyframes spinner_zKoa {
+              100% {
+                transform: rotate(360deg)
+              }
+            }
+
+            @keyframes spinner_YpZS {
+              0% {
+                stroke-dasharray: 0 150;
+                stroke-dashoffset: 0
+              }
+
+              47.5% {
+                stroke-dasharray: 42 150;
+                stroke-dashoffset: -16
+              }
+
+              95%,
+              100% {
+                stroke-dasharray: 42 150;
+                stroke-dashoffset: -59
+              }
+            }
+          </style>
+          <g class="spinner_V8m1">
+            <circle stroke="#e60000" cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle>
+          </g>
+        </svg>
+      </div>
+      <div class="spinner-text">
+        <p>Creating merge request ...</p>
+      </div>
+
+    </div>
+    <div id="mr_failure_content" class="dialog-content" style="display: none;">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M24 12C24 18.628 18.628 24 12 24C5.372 24 0 18.628 0 12C0 5.372 5.372 0 12 0C18.628 0 24 5.372 24 12Z"
+            fill="#BD000C" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.25 14H12.75L13.5 7H10.5L11.25 14ZM11 17H13V15H11V17Z"
+            fill="white" />
+        </svg>
+      </div>
+      <div>
+        <h2>Failure</h2>
+        <p>Something went wrong while creating the merge request.</p>
+        <p id="mr_error_message"></p>
+        <button id="mr_status_close_dialog" onclick="closeMrModel()" class="primary-button">Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Translation Dialog section -->
+  <dialog id="translate_status_dialog" class="dialog">
+    <div id="translation_status_loading_spinner" class="loading-container">
+      <div class="spinner">
+        <svg width="24" height="24" stroke="#000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .spinner_V8m1 {
+              transform-origin: center;
+              animation: spinner_zKoa 2s linear infinite
+            }
+
+            .spinner_V8m1 circle {
+              stroke-linecap: round;
+              animation: spinner_YpZS 1.5s ease-in-out infinite
+            }
+
+            @keyframes spinner_zKoa {
+              100% {
+                transform: rotate(360deg)
+              }
+            }
+
+            @keyframes spinner_YpZS {
+              0% {
+                stroke-dasharray: 0 150;
+                stroke-dashoffset: 0
+              }
+
+              47.5% {
+                stroke-dasharray: 42 150;
+                stroke-dashoffset: -16
+              }
+
+              95%,
+              100% {
+                stroke-dasharray: 42 150;
+                stroke-dashoffset: -59
+              }
+            }
+          </style>
+          <g class="spinner_V8m1">
+            <circle stroke="#e60000" cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle>
+          </g>
+        </svg>
+      </div>
+      <div class="spinner-text">
+        <p>translating messages ...</p>
+      </div>
+
+    </div>
+    <div id="translation_success_content" class="dialog-content" style="display: none;">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="24" fill="#6F7A1A" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M36.3835 18.4443L21.3941 32.8048L12.5791 23.9077L15.4206 21.0924L21.4672 27.1953L33.6163 15.5559L36.3835 18.4443Z"
+            fill="white" />
+        </svg>
+      </div>
+      <div>
+
+        <h2>Success</h2>
+        <p>The selected text has been successfully translated.</p>
+        <p>A new merge request has been created.</p>
+        <button id="translate_status_close_dialog" onclick="closeTranslationModel()"
+          class="primary-button">Close</button>
+
+
+      </div>
+
+    </div>
+    <div id="translation_failure_content" class="dialog-content" style="display: none;">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M24 12C24 18.628 18.628 24 12 24C5.372 24 0 18.628 0 12C0 5.372 5.372 0 12 0C18.628 0 24 5.372 24 12Z"
+            fill="#BD000C" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.25 14H12.75L13.5 7H10.5L11.25 14ZM11 17H13V15H11V17Z"
+            fill="white" />
+        </svg>
+      </div>
+      <div>
+        <h2>Failure</h2>
+        <p>Something went wrong while generating translation keys.</p>
+        <p id="translate_error_message"></p>
+        <button id="translate_status_close_dialog" onclick="closeTranslationModel()"
+          class="primary-button">Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Code generate Dialog section -->
+  <dialog id="code_generate_status_dialog" class="dialog">
+    <div id="code_generate_status_loading_spinner" class="loading-container">
+      <div class="spinner">
+        <svg width="24" height="24" stroke="#000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .spinner_V8m1 {
+              transform-origin: center;
+              animation: spinner_zKoa 2s linear infinite
+            }
+
+            .spinner_V8m1 circle {
+              stroke-linecap: round;
+              animation: spinner_YpZS 1.5s ease-in-out infinite
+            }
+
+            @keyframes spinner_zKoa {
+              100% {
+                transform: rotate(360deg)
+              }
+            }
+
+            @keyframes spinner_YpZS {
+              0% {
+                stroke-dasharray: 0 150;
+                stroke-dashoffset: 0
+              }
+
+              47.5% {
+                stroke-dasharray: 42 150;
+                stroke-dashoffset: -16
+              }
+
+              95%,
+              100% {
+                stroke-dasharray: 42 150;
+                stroke-dashoffset: -59
+              }
+            }
+          </style>
+          <g class="spinner_V8m1">
+            <circle stroke="#e60000" cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle>
+          </g>
+        </svg>
+      </div>
+      <div class="spinner-text">
+        <p>Generating code ...</p>
+      </div>
+
+    </div>
+    <div id="code_generate_success_content" class="dialog-content" style="display: none;">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="24" fill="#6F7A1A" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M36.3835 18.4443L21.3941 32.8048L12.5791 23.9077L15.4206 21.0924L21.4672 27.1953L33.6163 15.5559L36.3835 18.4443Z"
+            fill="white" />
+        </svg>
+      </div>
+      <div>
+        <h2>Generated code</h2>
+        <p id="code_generate_placeholder"></p>
+        <button id="code_generate_status_close_dialog" onclick="closeCodeGenerateModel()"
+          class="primary-button">Close</button>
+      </div>
+    </div>
+    <div id="code_generate_failure_content" class="dialog-content" style="display: none;">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M24 12C24 18.628 18.628 24 12 24C5.372 24 0 18.628 0 12C0 5.372 5.372 0 12 0C18.628 0 24 5.372 24 12Z"
+            fill="#BD000C" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.25 14H12.75L13.5 7H10.5L11.25 14ZM11 17H13V15H11V17Z"
+            fill="white" />
+        </svg>
+      </div>
+      <div>
+        <h2>Failure</h2>
+        <p>Something went wrong while generating code.</p>
+        <p id="code_generate_error_message"></p>
+        <button id="code_generate_status_close_dialog" onclick="closeCodeGenerateModel()"
+          class="primary-button">Close</button>
+
+      </div>
+    </div>
+  </dialog>
+
+
+  <!-- delete confirmation Dialog section -->
+  <dialog id="delete_confirmation_dialog" class="dialog">
+    <div id="delete_confirmation_content" class="dialog-content">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none">
+          <path d="M12 0L24 24H0L12 0Z" fill="#E4A911" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.25 17H12.75L13.5 10H10.5L11.25 17ZM11 20H13V18H11V20Z"
+            fill="#1C1C1C" />
+        </svg>
+      </div>
+      <div>
+
+        <h2>Delete</h2>
+        <p>Are you sure you want to delete the selected entry.</p>
+        <button id="delete_confirmation_no_dialog" onclick="closeDeleteConfirmationModel(false)"
+          class="secondary-button">Cancel</button>
+        <button id="delete_confirmation_yes_dialog" onclick="closeDeleteConfirmationModel(true)"
+          class="primary-button">Confirm</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- edit Dialog section -->
+  <dialog id="edit_entry_dialog" class="dialog" style="width: 300px;">
+    <div id="edit_entry_content" class="dialog-content">
+
+      <h2 id="edit_entry_dialog_title">TITLE</h2>
+      <div class="edit-form">
+        <div class="form-field">
+          <label for="translationKey">Key</label>
+          <input type="text" id="translationKey" name="translationKey" value="">
+        </div>
+        <div class="form-field">
+          <label for="translationValue">Value</label>
+          <input type="text" id="translationValue" name="translationValue" value="">
+        </div>
+        <div id="accessibility_properties">
+          <div class="form-field">
+            <label for="accessibilityLabelKey">Accessibility label key</label>
+            <input type="text" id="accessibilityLabelKey" name="accessibilityLabelKey" value="">
+          </div>
+          <div class="form-field">
+            <label for="accessibilityLabelValue">Accessibility label</label>
+            <input type="text" id="accessibilityLabelValue" name="accessibilityLabelValue" value="">
+          </div>
+          <div class="form-field">
+            <label for="accessibilityHintKey">Accessibility hint</label>
+            <input type="text" id="accessibilityHintKey" name="accessibilityHintKey" value="">
+          </div>
+          <div class="form-field">
+            <label for="accessibilityHintValue">Accessibility hint</label>
+            <input type="text" id="accessibilityHintValue" name="accessibilityHintValue" value="">
+          </div>
+        </div>
+      </div>
+      <button id="edit_entry_no_dialog" onclick="closeEditEntryModel(false)" class="secondary-button">Cancel</button>
+
+      <button id="edit_entry_yes_dialog" onclick="closeEditEntryModel(
+        {
+        translation: {
+          key: document.getElementById('translationKey').value,
+          value: document.getElementById('translationValue').value
+        },
+        accessibility_label: {
+          key: document.getElementById('accessibilityLabelKey').value,
+          value: document.getElementById('accessibilityLabelValue').value
+        },
+        accessibility_hint: {
+          key: document.getElementById('accessibilityHintKey').value,
+          value: document.getElementById('accessibilityHintValue').value
+        },
+    }
+      )" class="primary-button">Update</button>
+      <button id="add_entry_yes_dialog" onclick="closeAddEntryModel(
+        {
+        translation: {
+          key: document.getElementById('translationKey').value,
+          value: document.getElementById('translationValue').value
+        },
+        accessibility_label: {
+          key: document.getElementById('accessibilityLabelKey').value,
+          value: document.getElementById('accessibilityLabelValue').value
+        },
+        accessibility_hint: {
+          key: document.getElementById('accessibilityHintKey').value,
+          value: document.getElementById('accessibilityHintValue').value
+        },
+    }
+      )" class="primary-button">Add</button>
+    </div>
+  </dialog>
+
+  <!-- END DIALOGS ##########################################################################################################-->
+  <script>
+    // Holds the entries state
+    let translationEntriesMap = new Map();
+    actionOnEntryKey = -1;
+    selectedRepository = null
+    selectedFolder = null;
+    selectedTerminology = null;
+    generateAccessibility = false;
+
+    document.getElementById('cancel').onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+    }
+
+    document.getElementById('close_plugin').onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+    }
+
+    document.getElementById('create_mr').onclick = () => {
+
+      openMrModel();
+
+      entries = {};
+      for (const [key, value] of translationEntriesMap.entries()) {
+        if (value.accessibility_hint && value.accessibility_hint.key && value.accessibility_hint.value) {
+          entries[value.accessibility_hint.key] = value.accessibility_hint.value;
+        }
+        if (value.translation && value.translation.key && value.translation.value) {
+          entries[value.translation.key] = value.translation.value;
+        }
+        if (value.accessibility_label && value.accessibility_label.key && value.accessibility_label.value) {
+          entries[value.accessibility_label.key] = value.accessibility_label.value;
+        }
+      }
+
+      parent.postMessage({
+        pluginMessage: {
+          type: 'create_mr',
+          data: {
+            target_repo: selectedRepository,
+            package: selectedFolder,
+            terminology: selectedTerminology,
+            entries: entries,
+            release_version: document.getElementById('releaseVersion').value
+          }
+        }
+      }, '*')
+    }
+
+    
+    document.getElementById('new_entry').onclick = () => {
+      openEditEntryModel(true);
+      document.getElementById('edit_entry_dialog_title').innerHTML = 'Add new entry';
+        // activate add button
+        document.getElementById('add_entry_yes_dialog').style.display = '';
+        //deactivate update button
+        document.getElementById('edit_entry_yes_dialog').style.display = 'none';
+    
+        console.log('opening edit model: ' + document.getElementById('generate_accessibility').checked)
+        document.getElementById('generate_accessibility').checked ?
+          document.getElementById('accessibility_properties').style.display = ''
+          :
+          document.getElementById('accessibility_properties').style.display = 'none';
+    }
+
+    document.getElementById('send').onclick = () => {
+      UpdateTranslationModel(null)
+      openTranslationModel();
+
+      // get repositories
+      let repositories = []
+      const repoIdStartsWith = "repository_"
+      document.querySelectorAll(`[id^=${repoIdStartsWith}]`).forEach(
+        (el) => {
+          if (el.checked) {
+            repositories.push(el.name)
+          }
+        });
+
+      // get textMessages
+      texts = {}
+      let textMessages = []
+      const textIdStartsWith = "text_message_"
+      document.querySelectorAll(`[id^=${textIdStartsWith}]`).forEach(
+        (el, i) => {
+          if (el.checked) {
+
+            texts[el.name] = el.value;
+          }
+
+        });
+      const generateAccessibility = document.getElementById('generate_accessibility').checked;
+
+      parent.postMessage({
+        pluginMessage: {
+          type: 'send',
+          data: {
+            repositories,
+            target_repo: selectedRepository,
+            package: selectedFolder,
+            terminology: selectedTerminology,
+            generateAccessibility,
+            textMessages: texts
+          }
+        }
+      }, '*')
+
+    }
+
+    document.getElementById('generate_accessibility').onclick = () => {
+
+      console.log('value: ' + document.getElementById('generate_accessibility').checked)
+
+    }
+
+    renderDeleteIcon = () => {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      var path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+      svg.setAttribute('viewbox', '0 0 12 12');
+      svg.setAttribute('width', '12px');
+      svg.setAttribute('height', '12px');
+      svg.setAttribute('fill', 'none');
+      path.setAttribute('d', 'M6 5.293l5-5 .707.707-5 5 5 5-.707.707-5-5-5 5L.293 11l5-5-5-5L1 .293l5 5z');
+      path.setAttribute('fill', '#1c1c1c');
+      svg.appendChild(path)
+
+      return svg;
+    }
+
+    renderEditIcon = () => {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      var path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+      svg.setAttribute('width', '12');
+      svg.setAttribute('height', '12');
+
+
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('viewbox', '0 0 16 17');
+      path.setAttribute('d', 'm11.54 1.18-.72-.72c-.3-.3-.69-.46-1.11-.46s-.82.16-1.11.46l-6.7 6.69-.07.22-.77 2.31-.63 1.9 4.43-1.48.17-.17 6.51-6.51c.61-.61.61-1.62 0-2.23zm-.71 1.52-.24.24-.77-.77-.71.71.77.77-.18.18-5.39 5.39-2.31.77.77-2.31 5.39-5.38 1.13-1.13c.11-.11.26-.17.41-.17s.3.06.41.17l.72.72.07.08c.16.23.13.54-.07.74z');
+      path.setAttribute('fill', '#1c1c1c');
+      svg.appendChild(path)
+
+      return svg;
+    }
+
+    renderEditableEntryRow = (tableElement, key, value) => {
+      const row = tableElement.insertRow();
+      row.id = 'row_' + key;
+
+      const cell1 = row.insertCell(0);
+      cell1.innerHTML = value.translation.key;
+
+      const cell2 = row.insertCell(1);
+      cell2.innerHTML = value.translation.value;
+
+      const cell3 = row.insertCell(2);
+      actionsElement = document.createElement("div");
+      actionsElement.className = "entry-actions";
+      cell3.appendChild(actionsElement);
+
+      deleteActionElement = document.createElement("a");
+      deleteActionElement.addEventListener('click', function (e) {
+        actionOnEntryKey = key;
+        openDeleteConfirmationModel();
+      });
+      deleteActionElement.appendChild(renderDeleteIcon());
+      actionsElement.appendChild(deleteActionElement);
+
+      editActionElement = document.createElement("a");
+      editActionElement.addEventListener('click', function (e) {
+        actionOnEntryKey = key;
+        openEditEntryModel(false);
+        document.getElementById('edit_entry_dialog_title').innerHTML = 'Edit entry';
+        // deactivate add button
+        document.getElementById('add_entry_yes_dialog').style.display = 'none';
+        //activate update button
+        document.getElementById('edit_entry_yes_dialog').style.display = '';
+
+
+        console.log('opening edit model: ' + document.getElementById('generate_accessibility').checked)
+        document.getElementById('generate_accessibility').checked ?
+          document.getElementById('accessibility_properties').style.display = ''
+          :
+          document.getElementById('accessibility_properties').style.display = 'none';
+
+      });
+      editActionElement.appendChild(renderEditIcon());
+      actionsElement.appendChild(editActionElement);
+
+    }
+
+    renderEntries = () => {
+      const tableElement = document.getElementById('translation_entries_table');
+
+      for (const [key, value] of translationEntriesMap.entries()) {
+        var row = tableElement.insertRow();
+        renderEditableEntryRow(tableElement, key, value)
+      }
+
+    }
+
+    /*   MR **/
+
+    openMrModel = () => {
+      document.getElementById('mr_status_dialog').showModal();
+    }
+
+    closeMrModel = () => {
+      document.getElementById('mr_status_dialog').close();
+    }
+
+    /*  Translation **/
+
+    openTranslationModel = () => {
+      document.getElementById('translate_status_dialog').showModal();
+    }
+
+    closeTranslationModel = () => {
+      document.getElementById('translate_status_dialog').close();
+    }
+
+
+
+    UpdateTranslationModel = (translation) => {
+      if (!translation) {
+        document.getElementById('translation_status_loading_spinner').style.display = '';
+        document.getElementById('translation_success_content').style.display = 'none';
+        document.getElementById('translation_failure_content').style.display = 'none';
+
+      } if (document.getElementById('translate_status_dialog').open) {
+        document.getElementById('translation_status_loading_spinner').style.display = 'none';
+
+
+        if (translation.code === 'success') {
+          console.log('receing entries: ' + translation.data.length);
+
+          translationEntriesMap = new Map();
+          translation.data?.forEach((entry, i) => translationEntriesMap.set(i,
+            entry
+          ));
+          console.table(translationEntriesMap)
+
+          renderEntries()
+          // go to page 2
+          gotoEntriesEditPage();
+          closeTranslationModel();
+
+        } else {
+          document.getElementById('translation_failure_content').style.display = '';
+          document.getElementById('translate_error_message').innerHTML = 'Error: ' + translation.data;
+
+        }
+      }
+    }
+
+    UpdateMrModel = (mr) => {
+      if (!mr) {
+        document.getElementById('mr_status_loading_spinner').style.display = '';
+        document.getElementById('mr_success_content').style.display = 'none';
+        document.getElementById('mr_failure_content').style.display = 'none';
+
+      } if (document.getElementById('mr_status_dialog').open) {
+        document.getElementById('mr_status_loading_spinner').style.display = 'none';
+
+        if (mr.code === 'success') {
+          console.log('receing MR: ' + JSON.stringify(mr));
+
+
+          // go to page 3
+          gotoMrCreatedPage(mr.data);
+          closeMrModel();
+
+        } else {
+          document.getElementById('mr_failure_content').style.display = '';
+          document.getElementById('mr_error_message').innerHTML = 'Error: ' + mr.data;
+
+        }
+      }
+    }
+
+    onSelectAllTextMessagesClick = (e) => {
+      const textIdStartsWith = "text_message_"
+      document.querySelectorAll(`[id^=${textIdStartsWith}]`).forEach(el =>
+        el.checked = e.target.checked
+      );
+
+      updateGenerateKeysStatus();
+    }
+
+
+    addSelectAllTextMessagesCheckBox = () => {
+
+      const messagesPlaceholder = document.getElementById('messages_placeholder');
+      messageContainer = document.createElement("label");
+      messageContainer.className = "checkbox-container";
+      messageContainer.innerHTML = 'Select all text messages';
+      messageInput = document.createElement("input");
+      messageInput.name = 'Select all text messages';
+      messageInput.type = 'checkbox';
+      messageInput.id = 'select_text_messages';
+      messageInput.addEventListener('click', onSelectAllTextMessagesClick);
+      messageSpan = document.createElement("span");
+      messageSpan.className = "checkmark";
+      messageContainer.appendChild(messageInput);
+      messageContainer.appendChild(messageSpan);
+      messagesPlaceholder.appendChild(messageContainer);
+    }
+
+    addTextCheckBox = (message, index) => {
+      const messagesPlaceholder = document.getElementById('messages_placeholder');
+      messageContainer = document.createElement("label");
+      messageContainer.className = "checkbox-container";
+      messageContainer.innerHTML = message.text;
+      messageInput = document.createElement("input");
+      messageInput.name = message.path;
+      messageInput.value = message.text;
+      messageInput.type = 'checkbox';
+      messageInput.id = 'text_message_' + index;
+      messageInput.addEventListener('input', function (evt) {
+        updateGenerateKeysStatus()
+      });
+      messageSpan = document.createElement("span");
+      messageSpan.className = "checkmark";
+      messageContainer.appendChild(messageInput);
+      messageContainer.appendChild(messageSpan);
+      messagesPlaceholder.appendChild(messageContainer);
+    }
+
+    updateGenerateKeysStatus = () => {
+      isAtLeastOnTextSelected = false;
+      const textIdStartsWith = "text_message_";
+      document.querySelectorAll(`[id^=${textIdStartsWith}]`).forEach(
+        (el, i) => {
+          if (el.checked) {
+            isAtLeastOnTextSelected = true
+            return;
+          }
+
+        });
+      selectedFolder && selectedTerminology && isAtLeastOnTextSelected ?
+        document.getElementById('send').classList.remove('disabled')
+        :
+        document.getElementById('send').classList.add('disabled');
+    }
+
+    updateCreateMrStatus = () => {
+      folderSelected = false;
+      const textIdStartsWith = "text_message_";
+      document.querySelectorAll(`[id^=${textIdStartsWith}]`).forEach(
+        (el, i) => {
+          if (el.checked) {
+            folderSelected = true
+            return;
+          }
+
+        });
+      folderSelected ? document.getElementById('create_mr').classList.remove('disabled')
+        :
+        document.getElementById('create_mr').classList.add('disabled');
+    }
+
+
+
+
+    parseAllNodes = () => {
+      document.getElementById('loading_text').style.display = '';
+      document.getElementById('messages_placeholder').innerHTML = '';
+
+      parent.postMessage({
+        pluginMessage: {
+          type: 'loadAllMessages',
+          data: {
+          }
+        }
+      }, '*')
+    }
+
+
+    onmessage = (event) => {
+      if (event.data.pluginMessage.type === 'messages') {
+        document.getElementById('loading_text').style.display = 'none';
+        if (event.data.pluginMessage.mode === 'selection') {
+          document.getElementById('notification').style.display = '';
+        } else {
+          document.getElementById('notification').style.display = 'none';
+        }
+        addSelectAllTextMessagesCheckBox()
+        event.data.pluginMessage?.data?.forEach((message, index) => {
+          addTextCheckBox(message, index);
+        })
+      }
+
+      if (event.data.pluginMessage.type === 'translation') {
+        UpdateTranslationModel(event.data.pluginMessage)
+
+      }
+      if (event.data.pluginMessage.type === 'merge_request') {
+        console.log('A: ' + JSON.stringify(event.data.pluginMessage));
+        UpdateMrModel(event.data.pluginMessage)
+
+
+      }
+
+      if (event.data.pluginMessage.type === 'code_generate') {
+        UpdateGenerateCodeModel(event.data.pluginMessage);
+      }
+
+      if (event.data.pluginMessage.type === 'folder_list') {
+
+        // hide loading packages spinner
+        document.getElementById('loading_packages').style.display = 'none';
+
+        // check the plugin message code
+        if (event.data.pluginMessage.code === 'success') {
+          console.log('receing packages: ' + event.data.pluginMessage.data.packages.length);
+          // show the packages annd other configs
+          document.getElementById('itt_config').style.display = 'flex';
+          document.getElementById('other_config').style.display = 'flex';
+        } else {
+          // show the error message
+          document.getElementById('loading_packages_failure').style.display = 'flex';
+          document.getElementById('loading_packages_error_message').innerHTML = 'Error: ' + event.data.pluginMessage.data;
+        
+
+          
+        }
+
+
+
+
+        const foldersSelect = document.getElementById('folders-select');
+        foldersSelect.innerHTML = '';
+        const selectFieldDivElement = document.createElement("option");
+        selectFieldDivElement.setAttribute("value", '0');
+        selectFieldDivElement.innerHTML = 'Select a package';
+        foldersSelect.appendChild(selectFieldDivElement)
+
+        event.data.pluginMessage.data.packages.forEach(item => {
+          const selectFieldDivElement = document.createElement("option");
+          selectFieldDivElement.setAttribute("value", item);
+          selectFieldDivElement.innerHTML = item;
+          foldersSelect.appendChild(selectFieldDivElement)
+        })
+
+        //
+        if (event.data.pluginMessage.data.terminologies.length) {
+          document.getElementById('terminology-selection-item').style.display = '';
+          console.log('There are terms');
+          const terminologySelect = document.getElementById('terminology-select');
+          terminologySelect.innerHTML = '';
+          const terminologyFieldDivElement = document.createElement("option");
+          terminologyFieldDivElement.setAttribute("value", '0');
+          terminologyFieldDivElement.innerHTML = 'Select terminology';
+          terminologySelect.appendChild(terminologyFieldDivElement)
+
+          event.data.pluginMessage.data.terminologies.forEach(item => {
+            const selectFieldDivElement = document.createElement("option");
+            selectFieldDivElement.setAttribute("value", item);
+            selectFieldDivElement.innerHTML = item;
+            terminologySelect.appendChild(selectFieldDivElement)
+          })
+
+        } else {
+          const terminologySelect = document.getElementById('terminology-select');
+          terminologySelect.innerHTML = '';
+          const terminologyFieldDivElement = document.createElement("option");
+          terminologyFieldDivElement.setAttribute("value", '0');
+          terminologyFieldDivElement.innerHTML = 'Select terminology';
+          terminologySelect.appendChild(terminologyFieldDivElement)
+
+          document.getElementById('terminology-selection-item').style.display = 'none';
+        }
+
+        renderSelectComponents();
+      }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    openDeleteConfirmationModel = () => {
+      document.getElementById('delete_confirmation_dialog').showModal();
+    }
+
+    openEditEntryModel = (newEntry) => {
+      document.getElementById('edit_entry_dialog').showModal();
+
+      let entry;
+      if(newEntry) {
+        entry = {
+            translation: {
+              key: '',
+              value: ''
+            },
+            accessibility_label: {
+              key: '',
+              value: ''
+            },
+            accessibility_hint: {
+              key: '',
+              value: ''
+            },
+          }
+      } else {
+         entry = translationEntriesMap.get(actionOnEntryKey);
+      }
+
+      // update fields
+      document.getElementById('translationKey').value = entry.translation.key;
+      document.getElementById('translationValue').value = entry.translation.value;
+      if (document.getElementById('generate_accessibility').checked) {
+        document.getElementById('accessibilityLabelKey').value = entry.accessibility_label.key;
+        document.getElementById('accessibilityLabelValue').value = entry.accessibility_label.value;
+        document.getElementById('accessibilityHintKey').value = entry.accessibility_hint.key;
+        document.getElementById('accessibilityHintValue').value = entry.accessibility_hint.value;
+      }
+
+    }
+
+    closeDeleteConfirmationModel = (result) => {
+
+      if (result) {
+        deleteEntry(actionOnEntryKey);
+      }
+
+      document.getElementById('delete_confirmation_dialog').close();
+    }
+
+    deleteEntry = (index) => {
+      // Update data
+      translationEntriesMap.delete(index);
+      // Update UI
+      document.getElementById('row_' + index).parentElement.removeChild(document.getElementById('row_' + index))
+    }
+
+    editEntry = (index, data) => {
+      translationEntriesMap.set(index,
+        data
+      );
+      document.getElementById('row_' + index).getElementsByTagName('td')[0].innerHTML = data.translation.key;
+      document.getElementById('row_' + index).getElementsByTagName('td')[1].innerHTML = data.translation.value;
+    }
+
+    addEntry = (data) => {
+      // get the next index
+      const index = translationEntriesMap.size;
+      translationEntriesMap.set(index,
+        data
+      );
+
+      // Add a new row
+      const tableElement = document.getElementById('translation_entries_table');
+      renderEditableEntryRow(tableElement, index, data)
+    }
+
+
+    closeEditEntryModel = (result) => {
+      console.log('editing: ' + actionOnEntryKey + '- result: ' + JSON.stringify(result));
+      if (result) {
+        editEntry(actionOnEntryKey, result);
+      }
+      document.getElementById('edit_entry_dialog').close();
+    }
+
+    closeAddEntryModel = (result) => {
+      console.log('Adding: ' + JSON.stringify(result));
+      if (result) {
+        addEntry(result);
+      }
+      document.getElementById('edit_entry_dialog').close();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    const renderSelectComponents = () => {
+
+      /* Look for any elements with the class "custom-select": */
+      const customSelectComponents = document.getElementsByClassName("custom-select");
+      for (let i = 0; i < customSelectComponents.length; i++) {
+        selectElement = customSelectComponents[i].getElementsByTagName("select")[0];
+        const selectID = customSelectComponents[i].getElementsByTagName("select")[0].id;
+        /* For each element, create a new DIV that will act as the selected item: */
+        let selectFieldDivElement;
+        if (customSelectComponents[i].getElementsByClassName("select-selected")[0]) {
+          selectFieldDivElement = customSelectComponents[i].getElementsByClassName("select-selected")[0];
+          selectFieldDivElement.innerHTML = ''
+        } else {
+          selectFieldDivElement = document.createElement("DIV");
+        }
+
+
+        //   const selectFieldDivElement = document.createElement("DIV");
+        selectFieldDivElement.setAttribute("class", "select-selected");
+        selectFieldDivElement.innerHTML = selectElement.options[selectElement.selectedIndex].innerHTML;
+        customSelectComponents[i].appendChild(selectFieldDivElement);
+        /* For each element, create a new DIV that will contain the option list: */
+        const optionsContainerDivElement = document.createElement("DIV");
+        optionsContainerDivElement.setAttribute("class", "select-items select-hide");
+        for (let j = 1; j < selectElement.length; j++) {
+          /* For each option in the original select element,
+          create a new DIV that will act as an option item: */
+          const optionDivElement = document.createElement("DIV");
+          optionDivElement.innerHTML = selectElement.options[j].innerHTML;
+          optionDivElement.addEventListener("click", function (e) {
+
+            if (selectID === 'folders-select') {
+              selectedFolder = optionDivElement.innerHTML;
+              updateGenerateKeysStatus();
+              document.getElementById('create_mr').classList.remove('disabled');
+            } else if (selectID === 'terminology-select') {
+              selectedTerminology = optionDivElement.innerHTML;
+              updateGenerateKeysStatus();
+              //  document.getElementById('create_mr').classList.remove('disabled');
+            }
+
+
+
+            /* When an item is clicked, update the original select box,
+            and the selected item: */
+            const selectElement = this.parentNode.parentNode.getElementsByTagName("select")[0];
+            const previousSiblingElement = this.parentNode.previousSibling;
+            for (let p = 0; p < selectElement.length; p++) {
+              if (selectElement.options[p].innerHTML == this.innerHTML) {
+                selectElement.selectedIndex = p;
+                previousSiblingElement.innerHTML = this.innerHTML;
+                const sameAsSelectedElement = this.parentNode.getElementsByClassName("same-as-selected");
+                for (let k = 0; k < sameAsSelectedElement.length; k++) {
+                  sameAsSelectedElement[k].removeAttribute("class");
+                }
+                this.setAttribute("class", "same-as-selected");
+                break;
+              }
+            }
+            previousSiblingElement.click();
+          });
+          optionsContainerDivElement.appendChild(optionDivElement);
+        }
+        customSelectComponents[i].appendChild(optionsContainerDivElement);
+        selectFieldDivElement.addEventListener("click", function (e) {
+          /* When the select box is clicked, close any other select boxes,
+          and open/close the current select box: */
+          e.stopPropagation();
+          closeAllSelect(this);
+          this.nextSibling.classList.toggle("select-hide");
+          this.classList.toggle("select-arrow-active");
+        });
+      }
+
+    }
+
+
+    renderSelectComponents();
+
+    gotoEntriesEditPage = () => {
+      document.getElementById('step0').style.display = 'none';
+      document.getElementById('step1').style.display = '';
+
+      document.getElementById('send').style.display = 'none';
+      document.getElementById('create_mr').style.display = '';
+
+    }
+
+    gotoMrCreatedPage = (mrLink) => {
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = '';
+      document.getElementById('merge_request_link').href = mrLink;
+
+      document.getElementById('send').style.display = 'none';
+      document.getElementById('create_mr').style.display = 'none';
+      document.getElementById('cancel').style.display = 'none';
+      document.getElementById('close_plugin').style.display = '';
+    }
+
+    const closeAllSelect = (elmnt) => {
+      /* A function that will close all select boxes in the document,
+      except the current select box: */
+      const arrNo = [];
+      const items = document.getElementsByClassName("select-items");
+      selectedItems = document.getElementsByClassName("select-selected");
+      for (let i = 0; i < selectedItems.length; i++) {
+        if (elmnt == selectedItems[i]) {
+          arrNo.push(i)
+        } else {
+          selectedItems[i].classList.remove("select-arrow-active");
+        }
+      }
+      for (let i = 0; i < items.length; i++) {
+        if (arrNo.indexOf(i)) {
+          items[i].classList.add("select-hide");
+        }
+      }
+    }
+
+    /* If the user clicks anywhere outside the select box,
+    then close all select boxes: */
+    document.addEventListener("click", closeAllSelect);
+  </script>
+
+</body>
+
+</html>
