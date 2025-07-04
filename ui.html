@@ -1536,7 +1536,7 @@
         selectFieldDivElement.innerHTML = 'Select a package';
         foldersSelect.appendChild(selectFieldDivElement)
 
-        event.data.pluginMessage.data.packages.forEach(item => {
+        event.data.pluginMessage.data.packages?.forEach(item => {
           const selectFieldDivElement = document.createElement("option");
           selectFieldDivElement.setAttribute("value", item);
           selectFieldDivElement.innerHTML = item;
@@ -1554,7 +1554,7 @@
           terminologyFieldDivElement.innerHTML = 'Select terminology';
           terminologySelect.appendChild(terminologyFieldDivElement)
 
-          event.data.pluginMessage.data.terminologies.forEach(item => {
+          event.data.pluginMessage.data.terminologies?.forEach(item => {
             const selectFieldDivElement = document.createElement("option");
             selectFieldDivElement.setAttribute("value", item);
             selectFieldDivElement.innerHTML = item;
