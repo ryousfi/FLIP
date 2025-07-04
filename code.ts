@@ -96,7 +96,6 @@ console.log('FLIP - Extracting text messages ...');
   // Get folders
   // GET_FOLDERS API **************************************************
   const requestParams = {
-    target_repository: 'itt'
   };
 
   console.log(JSON.stringify(requestParams));
@@ -152,7 +151,6 @@ figma.ui.onmessage = (msg: { type: string, data: any }) => {
     console.log('FLIP - Generating keys ...');
     // GENERATE_KEYS API **************************************************
     const requestParams: any = {
-      target_repo: 'itt',
       package: msg.data.package,
       terminology: msg.data.terminology,
       generate_accessibility_properties: msg.data.generateAccessibility,
@@ -249,7 +247,6 @@ figma.ui.onmessage = (msg: { type: string, data: any }) => {
       user_name: figma.currentUser.name,
       user_id: figma.currentUser.id,
       release_version: msg.data.release_version,
-      target_repo: 'itt',
       package: msg.data.package,
       terminology: msg.data.terminology,
       texts: msg.data.entries,
