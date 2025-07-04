@@ -158,7 +158,7 @@
     /* END CHECKBOX ************************************************* */
 
     /* BEGIN SELECT ************************************************* */
-
+    /*
     .custom-select {
       position: relative;
       font-family: Arial;
@@ -166,7 +166,6 @@
 
     .custom-select select {
       display: none;
-      /*hide original SELECT element: */
     }
 
     .select-selected {
@@ -198,10 +197,7 @@
 
     .select-items div,
     .select-selected {
-      /* color: #ffffff; */
       padding: 8px 16px;
-      /* border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;*/
       cursor: pointer;
 
     }
@@ -228,6 +224,57 @@
 
     .select-items div:hover {
       background-color: #eee;
+    }
+*/
+    .custom-select-container {
+      position: relative;
+      width: 250px;
+      font-family: Arial, sans-serif;
+    }
+
+    .selected {
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      border: 1px solid #ccc;
+      background: #fff;
+      z-index: 10;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .dropdown.active {
+      display: block;
+    }
+
+    .search-box {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .option {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background: #f0f0f0;
+    }
+
+    .no-results {
+      padding: 10px;
+      color: #999;
     }
 
     /* END SELECT ************************************************* */
@@ -506,7 +553,7 @@
       <div id="step0">
         <div class="configuration" style="flex-wrap: wrap;">
           <div id="loading_packages" style="width: 100%; display: flex;justify-content: center;">
-            <div  class="loading-container">
+            <div class="loading-container">
               <div class="spinner">
                 <svg width="24" height="24" stroke="#000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <style>
@@ -514,29 +561,29 @@
                       transform-origin: center;
                       animation: spinner_zKoa 2s linear infinite
                     }
-    
+
                     .spinner_V8m1 circle {
                       stroke-linecap: round;
                       animation: spinner_YpZS 1.5s ease-in-out infinite
                     }
-    
+
                     @keyframes spinner_zKoa {
                       100% {
                         transform: rotate(360deg)
                       }
                     }
-    
+
                     @keyframes spinner_YpZS {
                       0% {
                         stroke-dasharray: 0 150;
                         stroke-dashoffset: 0
                       }
-    
+
                       47.5% {
                         stroke-dasharray: 42 150;
                         stroke-dashoffset: -16
                       }
-    
+
                       95%,
                       100% {
                         stroke-dasharray: 42 150;
@@ -552,7 +599,7 @@
               <div class="spinner-text">
                 <p>loading itt repository packages ...</p>
               </div>
-    
+
             </div>
           </div>
 
@@ -563,8 +610,8 @@
                   <path
                     d="M24 12C24 18.628 18.628 24 12 24C5.372 24 0 18.628 0 12C0 5.372 5.372 0 12 0C18.628 0 24 5.372 24 12Z"
                     fill="#BD000C" />
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.25 14H12.75L13.5 7H10.5L11.25 14ZM11 17H13V15H11V17Z"
-                    fill="white" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M11.25 14H12.75L13.5 7H10.5L11.25 14ZM11 17H13V15H11V17Z" fill="white" />
                 </svg>
               </div>
               <div>
@@ -579,11 +626,20 @@
             <div class="item">
               <div class="section">Package</div>
               <!-- Folder selection section -->
-              <div class="custom-select" style="width:200px;">
+              <!--    <div class="custom-select" style="width:200px;">
                 <select id="folders-select">
                   <option value="0">Select a package</option>
                 </select>
               </div>
+-->
+              <div class="custom-select-container" id="folders-select" style="width:200px;">
+                <div class="selected">Select a folder</div>
+                <div class="dropdown">
+                  <input type="text" class="search-box" placeholder="Search..." />
+                  <div class="options"></div>
+                </div>
+              </div>
+
 
 
             </div>
@@ -591,10 +647,18 @@
             <div class="item" id="terminology-selection-item">
               <div class="section">Terminology</div>
               <!-- Terminology selection section -->
-              <div class="custom-select" style="width:200px;">
+              <!-- <div class="custom-select" style="width:200px;">
                 <select id="terminology-select">
                   <option value="0">Select terminology</option>
                 </select>
+              </div>
+-->
+              <div class="custom-select-container" id="terminology-select" style="width:200px;">
+                <div class="selected">Select a folder</div>
+                <div class="dropdown">
+                  <input type="text" class="search-box" placeholder="Search..." />
+                  <div class="options"></div>
+                </div>
               </div>
 
 
@@ -1148,20 +1212,20 @@
       }, '*')
     }
 
-    
+
     document.getElementById('new_entry').onclick = () => {
       openEditEntryModel(true);
       document.getElementById('edit_entry_dialog_title').innerHTML = 'Add new entry';
-        // activate add button
-        document.getElementById('add_entry_yes_dialog').style.display = '';
-        //deactivate update button
-        document.getElementById('edit_entry_yes_dialog').style.display = 'none';
-    
-        console.log('opening edit model: ' + document.getElementById('generate_accessibility').checked)
-        document.getElementById('generate_accessibility').checked ?
-          document.getElementById('accessibility_properties').style.display = ''
-          :
-          document.getElementById('accessibility_properties').style.display = 'none';
+      // activate add button
+      document.getElementById('add_entry_yes_dialog').style.display = '';
+      //deactivate update button
+      document.getElementById('edit_entry_yes_dialog').style.display = 'none';
+
+      console.log('opening edit model: ' + document.getElementById('generate_accessibility').checked)
+      document.getElementById('generate_accessibility').checked ?
+        document.getElementById('accessibility_properties').style.display = ''
+        :
+        document.getElementById('accessibility_properties').style.display = 'none';
     }
 
     document.getElementById('send').onclick = () => {
@@ -1517,63 +1581,21 @@
           // show the packages annd other configs
           document.getElementById('itt_config').style.display = 'flex';
           document.getElementById('other_config').style.display = 'flex';
+
+
+          renderSelect('folders-select', event.data.pluginMessage.data.packages, updateSelectedFolderCallback);
+          renderSelect('terminology-select', event.data.pluginMessage.data.terminologies, updateSelectedTerminologyCallback);
+
+
         } else {
           // show the error message
           document.getElementById('loading_packages_failure').style.display = 'flex';
           document.getElementById('loading_packages_error_message').innerHTML = 'Error: ' + event.data.pluginMessage.data;
-        
 
-          
         }
 
-
-
-
-        const foldersSelect = document.getElementById('folders-select');
-        foldersSelect.innerHTML = '';
-        const selectFieldDivElement = document.createElement("option");
-        selectFieldDivElement.setAttribute("value", '0');
-        selectFieldDivElement.innerHTML = 'Select a package';
-        foldersSelect.appendChild(selectFieldDivElement)
-
-        event.data.pluginMessage.data.packages?.forEach(item => {
-          const selectFieldDivElement = document.createElement("option");
-          selectFieldDivElement.setAttribute("value", item);
-          selectFieldDivElement.innerHTML = item;
-          foldersSelect.appendChild(selectFieldDivElement)
-        })
-
-        //
-        if (event.data.pluginMessage.data.terminologies.length) {
-          document.getElementById('terminology-selection-item').style.display = '';
-          console.log('There are terms');
-          const terminologySelect = document.getElementById('terminology-select');
-          terminologySelect.innerHTML = '';
-          const terminologyFieldDivElement = document.createElement("option");
-          terminologyFieldDivElement.setAttribute("value", '0');
-          terminologyFieldDivElement.innerHTML = 'Select terminology';
-          terminologySelect.appendChild(terminologyFieldDivElement)
-
-          event.data.pluginMessage.data.terminologies?.forEach(item => {
-            const selectFieldDivElement = document.createElement("option");
-            selectFieldDivElement.setAttribute("value", item);
-            selectFieldDivElement.innerHTML = item;
-            terminologySelect.appendChild(selectFieldDivElement)
-          })
-
-        } else {
-          const terminologySelect = document.getElementById('terminology-select');
-          terminologySelect.innerHTML = '';
-          const terminologyFieldDivElement = document.createElement("option");
-          terminologyFieldDivElement.setAttribute("value", '0');
-          terminologyFieldDivElement.innerHTML = 'Select terminology';
-          terminologySelect.appendChild(terminologyFieldDivElement)
-
-          document.getElementById('terminology-selection-item').style.display = 'none';
-        }
-
-        renderSelectComponents();
       }
+      
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -1586,23 +1608,23 @@
       document.getElementById('edit_entry_dialog').showModal();
 
       let entry;
-      if(newEntry) {
+      if (newEntry) {
         entry = {
-            translation: {
-              key: '',
-              value: ''
-            },
-            accessibility_label: {
-              key: '',
-              value: ''
-            },
-            accessibility_hint: {
-              key: '',
-              value: ''
-            },
-          }
+          translation: {
+            key: '',
+            value: ''
+          },
+          accessibility_label: {
+            key: '',
+            value: ''
+          },
+          accessibility_hint: {
+            key: '',
+            value: ''
+          },
+        }
       } else {
-         entry = translationEntriesMap.get(actionOnEntryKey);
+        entry = translationEntriesMap.get(actionOnEntryKey);
       }
 
       // update fields
@@ -1671,84 +1693,6 @@
     }
 
     ////////////////////////////////////////////////////////////////////////////////
-    const renderSelectComponents = () => {
-
-      /* Look for any elements with the class "custom-select": */
-      const customSelectComponents = document.getElementsByClassName("custom-select");
-      for (let i = 0; i < customSelectComponents.length; i++) {
-        selectElement = customSelectComponents[i].getElementsByTagName("select")[0];
-        const selectID = customSelectComponents[i].getElementsByTagName("select")[0].id;
-        /* For each element, create a new DIV that will act as the selected item: */
-        let selectFieldDivElement;
-        if (customSelectComponents[i].getElementsByClassName("select-selected")[0]) {
-          selectFieldDivElement = customSelectComponents[i].getElementsByClassName("select-selected")[0];
-          selectFieldDivElement.innerHTML = ''
-        } else {
-          selectFieldDivElement = document.createElement("DIV");
-        }
-
-
-        //   const selectFieldDivElement = document.createElement("DIV");
-        selectFieldDivElement.setAttribute("class", "select-selected");
-        selectFieldDivElement.innerHTML = selectElement.options[selectElement.selectedIndex].innerHTML;
-        customSelectComponents[i].appendChild(selectFieldDivElement);
-        /* For each element, create a new DIV that will contain the option list: */
-        const optionsContainerDivElement = document.createElement("DIV");
-        optionsContainerDivElement.setAttribute("class", "select-items select-hide");
-        for (let j = 1; j < selectElement.length; j++) {
-          /* For each option in the original select element,
-          create a new DIV that will act as an option item: */
-          const optionDivElement = document.createElement("DIV");
-          optionDivElement.innerHTML = selectElement.options[j].innerHTML;
-          optionDivElement.addEventListener("click", function (e) {
-
-            if (selectID === 'folders-select') {
-              selectedFolder = optionDivElement.innerHTML;
-              updateGenerateKeysStatus();
-              document.getElementById('create_mr').classList.remove('disabled');
-            } else if (selectID === 'terminology-select') {
-              selectedTerminology = optionDivElement.innerHTML;
-              updateGenerateKeysStatus();
-              //  document.getElementById('create_mr').classList.remove('disabled');
-            }
-
-
-
-            /* When an item is clicked, update the original select box,
-            and the selected item: */
-            const selectElement = this.parentNode.parentNode.getElementsByTagName("select")[0];
-            const previousSiblingElement = this.parentNode.previousSibling;
-            for (let p = 0; p < selectElement.length; p++) {
-              if (selectElement.options[p].innerHTML == this.innerHTML) {
-                selectElement.selectedIndex = p;
-                previousSiblingElement.innerHTML = this.innerHTML;
-                const sameAsSelectedElement = this.parentNode.getElementsByClassName("same-as-selected");
-                for (let k = 0; k < sameAsSelectedElement.length; k++) {
-                  sameAsSelectedElement[k].removeAttribute("class");
-                }
-                this.setAttribute("class", "same-as-selected");
-                break;
-              }
-            }
-            previousSiblingElement.click();
-          });
-          optionsContainerDivElement.appendChild(optionDivElement);
-        }
-        customSelectComponents[i].appendChild(optionsContainerDivElement);
-        selectFieldDivElement.addEventListener("click", function (e) {
-          /* When the select box is clicked, close any other select boxes,
-          and open/close the current select box: */
-          e.stopPropagation();
-          closeAllSelect(this);
-          this.nextSibling.classList.toggle("select-hide");
-          this.classList.toggle("select-arrow-active");
-        });
-      }
-
-    }
-
-
-    renderSelectComponents();
 
     gotoEntriesEditPage = () => {
       document.getElementById('step0').style.display = 'none';
@@ -1770,29 +1714,82 @@
       document.getElementById('close_plugin').style.display = '';
     }
 
-    const closeAllSelect = (elmnt) => {
-      /* A function that will close all select boxes in the document,
-      except the current select box: */
-      const arrNo = [];
-      const items = document.getElementsByClassName("select-items");
-      selectedItems = document.getElementsByClassName("select-selected");
-      for (let i = 0; i < selectedItems.length; i++) {
-        if (elmnt == selectedItems[i]) {
-          arrNo.push(i)
-        } else {
-          selectedItems[i].classList.remove("select-arrow-active");
+
+
+    const renderSelect = (selectID, items, callback) => {
+      const container = document.getElementById(selectID);
+      container._callback = callback;
+      const selected = container.querySelector('.selected');
+      const dropdown = container.querySelector('.dropdown');
+      const searchBox = container.querySelector('.search-box');
+      const optionsContainer = container.querySelector('.options');
+
+      selected.addEventListener('click', () => {
+        dropdown.classList.toggle('active');
+        searchBox.value = '';
+        populateOptions(selectID, items);
+        searchBox.focus();
+      });
+
+      searchBox.addEventListener('input', () => {
+        const search = searchBox.value.toLowerCase();
+        const filtered = items.filter(item => item.toLowerCase().includes(search));
+        populateOptions(selectID, filtered);
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!container.contains(e.target)) {
+          dropdown.classList.remove('active');
         }
-      }
-      for (let i = 0; i < items.length; i++) {
-        if (arrNo.indexOf(i)) {
-          items[i].classList.add("select-hide");
-        }
-      }
+      });
+
+      // Populate initial options
+      populateOptions(selectID, items);
     }
 
-    /* If the user clicks anywhere outside the select box,
-    then close all select boxes: */
-    document.addEventListener("click", closeAllSelect);
+    const updateSelectedFolderCallback = (value) => {
+      selectedFolder = value;
+      updateGenerateKeysStatus();
+    }
+
+    const updateSelectedTerminologyCallback = (value) => {
+      selectedTerminology = value;
+      updateGenerateKeysStatus();
+    }
+
+
+
+    function populateOptions(selectId, items) {
+      const container = document.getElementById(selectId);
+      const selected = container.querySelector('.selected');
+      const dropdown = container.querySelector('.dropdown');
+      const searchBox = container.querySelector('.search-box');
+      const optionsContainer = container.querySelector('.options');
+      optionsContainer.innerHTML = '';
+      if (items.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = 'No results found';
+        optionsContainer.appendChild(noResults);
+        return;
+      }
+
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'option';
+        div.textContent = item;
+        div.addEventListener('click', () => {
+          selected.textContent = item;
+          container._callback && container._callback(item);
+          //      searchBox.value = '';
+          dropdown.classList.remove('active');
+        });
+        optionsContainer.appendChild(div);
+      });
+    }
+
+
+  </script>
   </script>
 
 </body>
