@@ -100,49 +100,49 @@ console.log('FLIP - Extracting text messages ...');
 
   console.log(JSON.stringify(requestParams));
 
+
+  (async () => {
+
+    try {
+      const data = await fetchWithErrorHandling(GET_FOLDERS_ENDPOINT,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(
+            requestParams
+          ),
+        });
+      data?.packages.sort();
+      data?.terminologies.sort();
+      figma.ui.postMessage({ type: 'folder_list', code: 'success', data: data });
+    } catch (error) {
+      console.log('FLIP - Error occured while getting repository folders: ' + (error as Error).message);
+      figma.ui.postMessage({ type: 'folder_list', code: 'failure', data: (error as Error).message });
+    }
+  })();
+
+
+  /*
+    setTimeout(() => {
+      const dataItt = {
+        packages: [
+          'itt_asajgh-dsds-dsds-dsds-dsds-dsds-dsds3asas', 'itt - package 1', 'itt - package 2'
+        ],
+        terminologies: [
+          'itt - terminology 3', 'itt - terminology 1', 'itt - terminology 2'
+        ],
+      };
   
-       (async () => {
-   
-         try {
-           const data = await fetchWithErrorHandling(GET_FOLDERS_ENDPOINT,
-             {
-               method: 'POST',
-               headers: {
-                 'Content-Type': 'application/json'
-               },
-               body: JSON.stringify(
-                   requestParams
-               ),
-             });
-            data?.packages.sort();
-            data?.terminologies.sort();
-           figma.ui.postMessage({ type: 'folder_list', code: 'success', data: data });
-         } catch (error) {
-           console.log('FLIP - Error occured while getting repository folders: ' + (error as Error).message);
-           figma.ui.postMessage({ type: 'folder_list', code: 'failure', data: (error as Error).message });
-         }
-       })();
- 
-
-/*
-  setTimeout(() => {
-    const dataItt = {
-      packages: [
-        'itt - package 3', 'itt - package 1', 'itt - package 2'
-      ],
-      terminologies: [
-        'itt - terminology 3', 'itt - terminology 1', 'itt - terminology 2'
-      ],
-    };
-
-    // order packages and terminologies by name
-    dataItt.packages.sort();
-    dataItt.terminologies.sort();
-    console.log('Sending back folders: ' + JSON.stringify(dataItt));
-    figma.ui.postMessage({ type: 'folder_list', code: 'success', data: dataItt });
-  }, 4000)
-*/
-
+      // order packages and terminologies by name
+      dataItt.packages.sort();
+      dataItt.terminologies.sort();
+      console.log('Sending back folders: ' + JSON.stringify(dataItt));
+      figma.ui.postMessage({ type: 'folder_list', code: 'success', data: dataItt });
+    }, 1000)
+  
+  */
 })()
 
 // on messages from figma UI (send, generate codeor cancel)
@@ -158,87 +158,87 @@ figma.ui.onmessage = (msg: { type: string, data: any }) => {
     }
 
     console.log(JSON.stringify(requestParams));
-     
-          (async () => {
-            try {
-              const data = await fetchWithErrorHandling(GENERATE_KEYS_ENDPOINT,
-                {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-      
-                  },
-                  body: JSON.stringify(
-                    requestParams
-                  ),
-                });
-              figma.ui.postMessage({ type: 'translation', code: 'success', data: data.translations });
-            } catch (error) {
-              console.log('FLIP - Error occured while generating translation keys for the selected messages: ' + (error as Error).message);
-              figma.ui.postMessage({ type: 'translation', code: 'failure', data: (error as Error).message });
-            }
-          })();
-  
-/*
-    setTimeout(() => {
-      const list = {
-        translations: [
+
+    (async () => {
+      try {
+        const data = await fetchWithErrorHandling(GENERATE_KEYS_ENDPOINT,
           {
-            translation: {
-              key: 'translation_key0',
-              value: 'translation_val0'
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+
             },
-            accessibility_label: {
-              key: 'acc_label_key0',
-              value: 'acc_label_val0'
-            },
-            accessibility_hint: {
-              key: 'acc_hint_key0',
-              value: 'acc_hint_key0'
-            },
-          },
-          {
-            translation: {
-              key: 'translation_key1',
-              value: 'translation_val1'
-            },
-            accessibility_label: {
-              key: 'acc_label_key1',
-              value: 'acc_label_val1'
-            },
-            accessibility_hint: {
-              key: 'acc_hint_key1',
-              value: 'acc_hint_key1'
-            },
-          }
-        ]
+            body: JSON.stringify(
+              requestParams
+            ),
+          });
+        figma.ui.postMessage({ type: 'translation', code: 'success', data: data.translations });
+      } catch (error) {
+        console.log('FLIP - Error occured while generating translation keys for the selected messages: ' + (error as Error).message);
+        figma.ui.postMessage({ type: 'translation', code: 'failure', data: (error as Error).message });
       }
+    })();
 
-      const listWithoutAccessibility = {
-        translations: [
-          {
-            translation: {
-              key: 'translation_key0',
-              value: 'translation_val0'
-            }
-          },
-          {
-            translation: {
-              key: 'translation_key1',
-              value: 'translation_val1'
-            }
+    /*
+        setTimeout(() => {
+          const list = {
+            translations: [
+              {
+                translation: {
+                  key: 'translation_key0',
+                  value: 'translation_val0'
+                },
+                accessibility_label: {
+                  key: 'acc_label_key0',
+                  value: 'acc_label_val0'
+                },
+                accessibility_hint: {
+                  key: 'acc_hint_key0',
+                  value: 'acc_hint_key0'
+                },
+              },
+              {
+                translation: {
+                  key: 'translation_key1',
+                  value: 'translation_val1'
+                },
+                accessibility_label: {
+                  key: 'acc_label_key1',
+                  value: 'acc_label_val1'
+                },
+                accessibility_hint: {
+                  key: 'acc_hint_key1',
+                  value: 'acc_hint_key1'
+                },
+              }
+            ]
           }
-        ]
-      }
+    
+          const listWithoutAccessibility = {
+            translations: [
+              {
+                translation: {
+                  key: 'translation_key0',
+                  value: 'translation_val0'
+                }
+              },
+              {
+                translation: {
+                  key: 'translation_key1',
+                  value: 'translation_val1'
+                }
+              }
+            ]
+          }
+    
+          figma.ui.postMessage({
+            type: 'translation', code: 'success',
+            data: msg.data.generateAccessibility ? list.translations : listWithoutAccessibility.translations
+          });
+        }, 500)
+    */
 
-      figma.ui.postMessage({
-        type: 'translation', code: 'success',
-        data: msg.data.generateAccessibility ? list.translations : listWithoutAccessibility.translations
-      });
-    }, 500)
-
-*/
   } else if (msg.type === 'create_mr') {
     console.log('FLIP - Creating MR ...');
 
@@ -247,6 +247,7 @@ figma.ui.onmessage = (msg: { type: string, data: any }) => {
       user_name: figma.currentUser.name,
       user_id: figma.currentUser.id,
       release_version: msg.data.release_version,
+      branch_name: msg.data.branch_name,
       package: msg.data.package,
       terminology: msg.data.terminology,
       texts: msg.data.entries,
@@ -255,45 +256,45 @@ figma.ui.onmessage = (msg: { type: string, data: any }) => {
       ]
     }
 
-    
+
     console.log(JSON.stringify(requestParams));
 
 
-    
-        (async () => {
-    
-          try {
-            const data = await fetchWithErrorHandling(CREATE_MR_ENDPOINT,
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(
-                    requestParams
-                ),
-              });
-            figma.ui.postMessage({ type: 'merge_request', code: 'success', data: data.merge_request_link });
-          } catch (error) {
-            console.log('FLIP - Error occured while creating the merge request: ' + (error as Error).message);
-            figma.ui.postMessage({ type: 'merge_request', code: 'failure', data: (error as Error).message });
-          }
-        })();
-  
-        
 
-/*
-    setTimeout(() => {
-      const data = {
-        merge_request_link: 'https://www.google.com/'
+    (async () => {
+
+      try {
+        const data = await fetchWithErrorHandling(CREATE_MR_ENDPOINT,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+              requestParams
+            ),
+          });
+        figma.ui.postMessage({ type: 'merge_request', code: 'success', data: data.merge_request_link });
+      } catch (error) {
+        console.log('FLIP - Error occured while creating the merge request: ' + (error as Error).message);
+        figma.ui.postMessage({ type: 'merge_request', code: 'failure', data: (error as Error).message });
       }
+    })();
 
-      console.log('Sending back MR link: ' + data.merge_request_link);
-      figma.ui.postMessage({ type: 'merge_request', code: 'success', data: data.merge_request_link });
-      // figma.ui.postMessage({ type: 'merge_request', code: 'failure', data: 'Something went wrong while reating MR' });
-    }, 500)
 
-*/
+    /*
+    
+        setTimeout(() => {
+          const data = {
+            merge_request_link: 'https://www.google.com/'
+          }
+    
+          console.log('Sending back MR link: ' + data.merge_request_link);
+          figma.ui.postMessage({ type: 'merge_request', code: 'success', data: data.merge_request_link });
+          // figma.ui.postMessage({ type: 'merge_request', code: 'failure', data: 'Something went wrong while reating MR' });
+        }, 500)
+    
+    */
 
   } else if (msg.type === 'loadAllMessages') {
     const messages = []

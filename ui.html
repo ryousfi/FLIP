@@ -395,6 +395,11 @@
       }
     }
 
+    .configuration.branch_name {
+      min-height: 0;
+    }
+
+
     .messages {
       margin-bottom: 25px;
     }
@@ -715,6 +720,18 @@
       <div id="step1" style="display: none;">
         <!-- Configuration section -->
 
+        <div class="configuration branch_name" style="flex-wrap: wrap;">
+          <div class="item">
+            <div class="section">Branch name</div>
+            <!-- Branch name -->
+            <div class="form-field" style="width: 300px">
+              <input type="text" id="branch_name" name="branch_name" value="">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="section">Keys</div>
         <table id="translation_entries_table">
           <tr>
             <th>Key</th>
@@ -1118,7 +1135,6 @@
     // Holds the entries state
     let translationEntriesMap = new Map();
     actionOnEntryKey = -1;
-    selectedRepository = null
     selectedFolder = null;
     selectedTerminology = null;
     generateAccessibility = false;
@@ -1152,11 +1168,11 @@
         pluginMessage: {
           type: 'create_mr',
           data: {
-            target_repo: selectedRepository,
             package: selectedFolder,
             terminology: selectedTerminology,
             entries: entries,
-            release_version: document.getElementById('releaseVersion').value
+            release_version: document.getElementById('releaseVersion').value,
+            branch_name: document.getElementById('branch_name').value
           }
         }
       }, '*')
@@ -1211,7 +1227,6 @@
           type: 'send',
           data: {
             repositories,
-            target_repo: selectedRepository,
             package: selectedFolder,
             terminology: selectedTerminology,
             generateAccessibility,
@@ -1458,22 +1473,6 @@
         document.getElementById('send').classList.add('disabled');
     }
 
-    updateCreateMrStatus = () => {
-      folderSelected = false;
-      const textIdStartsWith = "text_message_";
-      document.querySelectorAll(`[id^=${textIdStartsWith}]`).forEach(
-        (el, i) => {
-          if (el.checked) {
-            folderSelected = true
-            return;
-          }
-
-        });
-      folderSelected ? document.getElementById('create_mr').classList.remove('disabled')
-        :
-        document.getElementById('create_mr').classList.add('disabled');
-    }
-
 
 
 
@@ -1650,6 +1649,7 @@
 
       document.getElementById('send').style.display = 'none';
       document.getElementById('create_mr').style.display = '';
+      document.getElementById('create_mr').classList.remove('disabled')
 
     }
 
